@@ -111,7 +111,26 @@
   - 全屏显示进程信息。输入`q`退出
 - `kill <进程号>`
   - 杀死指定进程
+- `sudo`
+  - `sudo` 的全称为：super user do 顾名思义：干超级用户才能干的事！所以sudo最常用的功能是在要执行的命令前加上，从而以超级管理员权限(root)执行命令
+- `apt`
+  - `apt`（Advanced Packaging Tool）是一个在 Debian 和 Ubuntu 中的 Shell 软件包管理器
+  - `apt` 命令提供了查找、安装、升级、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记
+  - `apt` 命令执行需要超级管理员权限(root)
+  - `apt` 常用命令
+    - `sudo apt install <package_name>` 安装指定的软件命令
+    - `sudo apt update` 列出所有可更新的软件清单
+    - `sudo apt upgrade` 升级所有可升级软件包
+    - `sudo apt full-upgrade` 升级软件包，升级前会先删除需要更新软件包
+    - `sudo apt upgrade <package_name>` 更新指定的软件命令
+    - `sudo apt show <package_name>` 显示软件包具体信息,例如：版本号，安装大小，依赖关系等
+    - `sudo apt remove <package_name>` 删除软件包命令
+    - `sudo apt purge <package_name>` 移除软件包及配置文件
+    - `sudo apt autoremove` 清理不再使用的依赖和库文件
+    - `apt list --installed` 列出所有已安装的包
 
 > **参考文章**<br>
 > [关于 Ubnutu Linux 终端的必知必会的 19 件超简单的事情 | Linux 中国](https://zhuanlan.zhihu.com/p/442995159)<br>
-> [Ubuntu Manual | Ubuntu 参考手册](https://wiki.ubuntu.com.cn/UbuntuManual)
+> [Ubuntu Manual | Ubuntu 参考手册](https://wiki.ubuntu.com.cn/UbuntuManual)<br>
+> [Linux chmod命令](https://www.runoob.com/linux/linux-comm-chmod.html)<br>
+> [Linux apt命令](https://www.runoob.com/linux/linux-comm-apt.html)
