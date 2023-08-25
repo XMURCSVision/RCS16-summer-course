@@ -9,132 +9,109 @@
 - **`Ctrl + Shift + C` 复制**
 - **`Ctrl + Shift + V` 粘贴**
 - `鼠标滚轮` 如果用鼠标选中一段连续的文本，直接点击鼠标滚轮即可完成复制、粘贴的功能，粘贴位置在当前活动光标处
-- `Alt + b`或`Alt + 键盘左键` 向前移动一个词的距离。如果shell终端配置启用了可以通过快捷键打开菜单，会发生冲突，解决办法是禁用这个功能或者和Shift键一起使用
-- `Alt + f`或`Alt + 键盘右键` 向后移动一个词的距离。如果shell终端配置启用了可以通过快捷键打开菜单，会发生冲突，解决办法是禁用这个功能或者和Shift键一起使用
+- `Alt + b`或`Alt + 键盘左键` 向前移动一个词的距离
+- `Alt + f`或`Alt + 键盘右键` 向后移动一个词的距离
 - `Esc + b`或`Esc + 键盘左键` 移动到当前单词的开头
 - `Esc + f`或`Esc + 键盘右键`移动到当前单词的结尾 
 - **`Ctrl + a` 移动光标到命令行首**
 - **`Ctrl + e` 移动光标到命令行尾**
 - **`Tab` 自动补全**
 - **`Ctrl + w` 删除光标之前的一个词**
-- **`Alt + d` 删除光标之后的一个词**
 - **`Ctrl + u` 从当前光标所在位置向左全部删除**
+- **`Alt + d` 删除光标之后的一个词**
 - **`Ctrl + k` 从当前光标所在位置向右全部删除**
-- [参考文章](https://zhuanlan.zhihu.com/p/29538650)
+- **`向上向下箭头` 查看历史命令，只要按上下箭头即可，命令一个一个显示**
+- `Ctrl + r` 查看历史命令，需要输入命令的起始字母，剩下的部分自动补全
+- `Ctrl + g` 从历史搜索模式 `Ctrl + r` 退出
+- **`Ctrl + c` 取消当前行输入的命令**
+- `Ctrl + s` 暂停当前终端
+- `Ctrl + q` 恢复当前终端
+- **`Ctrl + l` 清空屏幕**
+> **参考文章**<br>
+> [Linux的shell终端常用快捷键大全](https://zhuanlan.zhihu.com/p/29538650)
 ## linux常用指令
-- `ls` 列出当前目录下文件和文件夹
+- `ls`
+  - 列出目录内容 (非以.开始的文件和目录) (以.开始的文件和目录会被隐藏) 
+- `ls -a` 
+  - 列出目录内容（所有的文件和目录）
+- `ls -la`
+  - 列出当前目录下的所有文件和目录的详细信息
+- `ls -d *`
+  - 列出当前目录下的目录名称，而不是目录下的内容。
 - `pwd` 显示当前目录的绝对路径
 - `mkdir` 
   - 语法`mkdir [-p] dirname`
   - 添加`-p`选项可以直接创建完整目录
 - `whoami` 显示当前用户名
-- `file filename` 显示指定
-- 文件的属性。
+- `file filename` 显示指定文件的属性。
 - `type -p commandname`
-      显示命令 `commandname` 所在的地方。
-      `which commandname` 也可以用来做这个
+  - 显示命令 `commandname` 所在的地方
+  - `which commandname` 也可以用来做这个
 - `type commandname`
-      显示命令 `commandname` 的信息。
-  apropos key-word
-      找到和 key-word相关的命令。
-      man -k key-word也可以做到
-  whatis commandname
-      显示该命令的一句话帮助。 commandname.
-  man -a commandname
-      显示命令的解释信息。 commandname. (Unix style)
-  info commandname
-      显示很长的命令解释 commandname. (GNU style)
+  - 显示命令 `commandname` 的信息。
+- `whatis commandname`
+  - 显示命令 `commandname` 的一句话帮助
+- `man -a commandname`
+  - 显示命令 `commandname` 的解释信息
+***
+### linux目录结构
+![](./images/image0.png)
+- `/` 根目录
+- `~` 用户主目录( `/home/username` 目录)
+- `.` 当前目录
+- `..` 上一级目录
+>**参考文章**<br>
+>[linux目录系统结构](https://www.runoob.com/linux/linux-system-contents.html)
+***
+- `cd <路径名>`
+  - 切换到指定路径
+  - p.s. 不要输入 `<` 和 `>` 
+- `cd -`
+  - 切换到上一次所去的目录
+- `touch <文件名路径>`
+  - 创建文件
+- `cp <文件1路径> <文件2路径>`
+  - 拷贝一个已有的`文件1`到`文件2`。
+- `rm <文件名路径>`
+  - 删除文件
+- `rm -r <文件目录>`
+  - 删除目录
+  - p.s. `-r`选项在许多linux命令中都会使用到，意思是使命令递归地对目录中所有文件执行，在想要对目录执行操作时，必须要加这个选项
+- `mv` 移动文件命令
+  - `mv <文件1> <文件2>`
+    - 把已有的文件1重命名为文件2
+  - `mv foo bar/baz`
+    - 把已有的文件foo移动到新位置并重命名为bar/baz，目录bar必须存在
+- `chmod` 控制用户对文件的权限
+  - Linux/Unix 的文件调用权限分为三级 : 文件所有者（Owner）、用户组（Group）、其它用户（Other Users），每一级又有读、写、执行三个权限
+  ![Alt text](./images/image1.png)
+  - 只有文件所有者和超级用户可以修改文件或目录的权限
+  - 指定权限可以使用绝对模式（八进制数字模式）或者符号模式
+  - 符号模式语法
+    - `chmod <用户类型><操作符><权限>`
+      - `<用户类型>`        
+        - `u` 文件所有者
+        - `g` 文件所有者所在组
+        - `o` 所有其他用户
+        - `a` 所有用户, 相当于ugo
+      - `<操作符>`
+        - `+` 为指定的用户类型增加权限
+        - `-` 去除指定用户类型的权限
+        - `=` 直接设置指定用户类型的权限
+      - `<权限>`
+        - `r` 读 设置为可读权限
+        - `w` 写 设置为可写权限
+        - `x` 执行 设置为可执行权限
+    - e.g. `chmod u+x` 意思是给文件所有者增加执行权限
+  - 绝对模式语法  
+    - 三位二进制数代表相对应权限的有无，1即有0即无
+    - 然后将二进制数转换为八进制数，以一位八进制数代表相应用户类型的权限
+    - e.g. `chmod 777`即将文件所有者、文件所有者所在的用户组、其他用户的权限都设置为可读可写可执行
+- `top`
+  - 全屏显示进程信息。输入`q`退出
+- `kill <进程号>`
+  - 杀死指定进程
 
-ls
-
-      列出目录内容 (非以.开始的文件和目录) 
-  ls -a
-      列出目录内容（所有的文件和目录）
-  ls -A
-      列出目录内容。（几乎所有的文件和目录，略去".." and "."）
-  ls -la
-      列出目录所有文件和目录的详细信息。查看 Ubuntu 中的文件系统概念, 第 4.5.2 节。
-  ls -d *
-      列出当前目录下的目录名称，而不是目录下的内容。
-  lsof foo
-      显示文件foo的打开状态。
-  mkdir foo
-      在当前目录下创建一个新的目录foo。
-  cd foo
-      切换到当前目录下或者在变量CDPATH中列出来的目录foo。在builtins(7)查看命令cd。
-  cd /
-      切换到根目录。
-  cd
-      切换到用户主目录。
-  cd /foo
-      切换到绝对路径/foo所指定的目录。
-  cd ..
-      切换到上一级目录。
-  cd ~/foo
-      切换到用户主目录下的foo目录去。
-  cd -
-      切换到上一次所去的目录。
-  </etc/motd pager
-      使用默认的分页程序查看文件/etc/motd的内容，参照 command < foo, 第 4.3.10.9 节。 
-  touch junkfile
-      创建一个空文件junkfile。
-  cp foo bar
-      拷贝一个已有的文件foo到新文件bar。
-  rm junkfile
-      删除文件junkfile。
-  rmdir bar
-      删除空目录bar。 (目录bar必须为空目录）
-  mv foo bar
-      把已有的文件foo重命名为bar
-  mv foo bar/baz
-      把已有的文件foo移动到新位置并重命名为bar/baz。目录bar必须存在。
-  chmod 600 foo
-      让已经存在的文件foo其他人不能读写。（所有人都 不能执行）。
-  chmod 644 foo
-      使文件foo其他的人可以读，但是不能写。（所有人 都不能执行）
-  chmod 755 foo
-      使文件foo其他的人能读不能写。（所有人都可以执行）
-  top
-      全屏显示进程信息。输入”q”退出。
-  ps aux | pager
-      用BSD风格输出所有正在运行的进程的信息。参照 command1 | command2, 第 4.3.10.2 节。
-  ps -ef | pager
-      用system-V风格来输出所有正在运行的进程的信息。
-  ps aux | grep -e "[e]xim4*"
-      显示exim4进程，或者运行exim的进程。输入man grep可以从grep(1)的手册页学习正则表达式。 
-  ps axf | pager
-      用ASCCI艺术形式来显示运行所有进程信息。
-  kill 1234
-      杀死进程号为1234的进程。 查看 中止一个进程, 第 8.5.1 节。
-  killall Xorg
-      重新启动Xwindow。
-  grep -e "pattern" *.html
-      找到当前目录下面所有以.html结尾的文件中含有"pattern"的行，并显示它们。
-  gzip foo
-      用Lempel-Ziv(LZ77)压缩算法压缩foo，生成foo.gz。
-  gunzip foo.gz
-      将文件foo.gz解压缩生成foo。
-  bzip2 foo
-      将文件foo.bz2解压缩生成foo。
-  tar -xvvf foo.tar
-      从打包文件foo.tar解出文件来。
-  tar -xvvzf foo.tar.gz
-      从打包压缩的文件foo.tar.gz中解开文件。
-  tar -xvvf --bzip2 foo.tar.bz2
-      从文件foo.tar.bz2解压缩文件。 
-  tar -cvvf foo.tar bar/
-      把目录bar/的内容打包存放到foo.tar存档中。
-  tar -cvvzf foo.tar.gz bar/
-      把目录bar/的内容打包并且压缩存放到foo.tar.gz存档中。
-  tar -cvvf --bzip2 foo.tar.bz2 bar/
-      把目录bar/中的内容打包存放到foo.tar.bz2存档里面。 
-  zcat README.gz | pager
-      使用默认的分页显示程序pager来显示压缩文件README.gz中的内容。
-  zcat README.gz > foo
-      使用文件README.gz解开后的内容创建一个文件foo。
-  zcat README.gz >> foo
-      把文件README.gz解开后的内容追加到文件foo的后面（如果文件不存在的话，就会创建一个）。
-  find . -name pattern
-      用shell找到匹配pattern的文件名（慢一些）。
-  locate -d . pattern
-      用shell找到匹配pattern的文件名（使用已有的规则的数据库，快一些）。
+> **参考文章**<br>
+> [关于 Ubnutu Linux 终端的必知必会的 19 件超简单的事情 | Linux 中国](https://zhuanlan.zhihu.com/p/442995159)<br>
+> [Ubuntu Manual | Ubuntu 参考手册](https://wiki.ubuntu.com.cn/UbuntuManual)
