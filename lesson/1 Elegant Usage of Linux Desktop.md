@@ -1,3 +1,14 @@
+# 今天上午的内容
+linux基础操作
+- 终端快捷键
+- 常用命令
+- 简单bash脚本
+我们今天用的是Linux发行版之一的Ubuntu Desktop
+
+Ubuntu Desktop是由Canonical开发的Linux 发行版，由于其易用性，它是最受欢迎的发行版之一。它也是刚开始使用 Linux 的人的首选之一
+
+那么什么是 Linux 发行版？它是由 Linux 内核开发的操作系统， 由 Linus Torvalds 于 1991 年创建的类 UNIX系统。Linux 发行版通常是免费和开源的，许多都是流行操作系统（如 Windows 和 macOS）的绝佳替代品
+
 ## linux终端快捷键
 - **`Ctrl + Alt + t` 新建终端**
 - `Shift + Ctrl + t` 在已有终端上打开新的tab
@@ -54,10 +65,10 @@
 - `man -a commandname`
   - 显示命令 `commandname` 的解释信息
 ***
-### linux目录结构
+#### linux目录结构
 ![](./images/image0.png)
 - `/` 根目录
-- `~` 用户主目录( `/home/username` 目录)
+- `~` 用户主目录( `/home/username(你的用户名)` 目录)
 - `.` 当前目录
 - `..` 上一级目录
 >**参考文章**<br>
@@ -65,7 +76,7 @@
 ***
 - `cd <路径名>`
   - 切换到指定路径
-  - p.s. 不要输入 `<` 和 `>` 
+  - p.s. 不要输入 `<` 和 `>` ，这个符号只是代表你应该在这个位置输入指定内容
 - `cd -`
   - 切换到上一次所去的目录
 - `touch <文件名路径>`
@@ -128,9 +139,185 @@
     - `sudo apt purge <package_name>` 移除软件包及配置文件
     - `sudo apt autoremove` 清理不再使用的依赖和库文件
     - `apt list --installed` 列出所有已安装的包
+- `wget`
+  - 你可以通过提供一个特定 URL 的链接，用 `wget` 下载一个文件。如果你提供一个默认为 `index.html` 的 URL ，那么就会下载该索引页。默认情况下，文件会被下载到你当前的工作目录，并保持原来的名字
+  - 通过使用 `--output-document` （简写为 `-O`）和 `-` 符号，你可以指示 `wget` 将数据发送到 **标准输出**
+  - 可以使用 `--output-document` 选项将下载文件命名为任何你想要的名称
+  - 如果你正在下载一个超大文件，你可能会遇到下载中断的情况，使用 `--continue`（简写为 `-c`），`wget` 可以继续上次下载
 
 > **参考文章**<br>
 > [关于 Ubnutu Linux 终端的必知必会的 19 件超简单的事情 | Linux 中国](https://zhuanlan.zhihu.com/p/442995159)<br>
 > [Ubuntu Manual | Ubuntu 参考手册](https://wiki.ubuntu.com.cn/UbuntuManual)<br>
 > [Linux chmod命令](https://www.runoob.com/linux/linux-comm-chmod.html)<br>
-> [Linux apt命令](https://www.runoob.com/linux/linux-comm-apt.html)
+> [Linux apt命令](https://www.runoob.com/linux/linux-comm-apt.html)<br>
+> [七个使用 wget 命令的技巧 | Linux 中国](https://zhuanlan.zhihu.com/p/436137238)
+
+## 常用操作
+- `文本编辑器`
+  - linux有多款可用的文本编辑器，如 `nano  vim  gedit`等
+  - `gedit` 
+      - 图形化的文本编辑器，最简单易用，和Windows下记事本的用法没什么差别
+      - 一般都有，没有就`sudo apt install gedit`
+      - 使用：在终端输入 `gedit <文件名或文件绝对路径>`
+  - `nano` 
+    - `nano` 是最适合新手的非图形化界面文本编辑器之一
+    - 一般系统都内置了 `nano` 编辑器，如果没有，可以自己安装: `sudo apt install -y nano`
+    - 使用:在终端输入 `nano <文件名或文件绝对路径>`
+    - 当你打开一个不存在的文件，那么即为新建文件，打开文件后，就可以直接编辑了
+    - 移动光标：使用用方向键移动，选择文字：按住鼠标左键拖动
+    - 复制粘贴同linux终端快捷键
+    - `nano` 快捷键：界面下方有提示，其中`^`代表`Ctrl+`，如`^G`即为`Ctrl+G`
+  - `vim`
+    - [vim使用教程](https://zhuanlan.zhihu.com/p/149515175)
+
+> **参考文章**<br>
+> [nano使用教程](https://cloud.tencent.com/developer/article/1935086)
+## bash脚本
+### 简介
+Shell 是一个用 C 语言编写的程序，它是用户使用 Linux 的桥梁。Shell 既是一种命令语言，又是一种程序设计语言
+
+Shell 是指一种应用程序，这个应用程序提供了一个界面，用户通过这个界面访问操作系统内核的服务
+
+Bash，Bourne Again Shell，是大多数 Linux 系统默认的 Shell
+
+**上一章节提到的linux命令都可以写进bash脚本运行**
+### 写一个简单的脚本
+在终端创建一个`.sh`文件
+```shell
+touch <filename>.sh
+```
+使用文本编辑器编辑`.sh`文件
+```shell
+nano <filename>.sh
+```
+写入如下代码
+```bash
+#!/bin/bash
+# 这是个注释
+echo "hello world"
+```
+- 第一行，`#!`是一个约定的标记，它告诉系统这个脚本需要什么解释器来执行，用的是哪种shell，后面的`/bin/bash`就是指明了解释器的具体位置
+- 第二行`#`是注释行，用来解释说明，当然`#！`是特殊的，不在此类
+- echo 命令用于向窗口输出文本
+执行这个脚本
+在终端运行
+```shell
+./<filename>.sh
+```
+`./`表示当前目录，一定要写`./`，如果直接写 `<filename>.sh`，linux 系统会去 `PATH` 里寻找有没有叫 `<filename>.sh` 的，而只有 /bin, /sbin, /usr/bin, /usr/sbin 等在 `PATH` 里，你的当前目录通常不在 `PATH` 里，所以写成 `<filename>.sh` 是会找不到命令的
+
+执行`./<filename>.sh`会说明权限不够，不能执行，需要增加执行权限，见上节
+
+如果不想改变执行权限，则可以通过在命令前加`.`临时增加权限
+```shell
+. ./<filename>.sh
+```
+注意要空格
+### shell变量
+定义变量语法如下
+```bash
+your_name="op"
+```
+**变量名和等号之间不能有空格**，这可能和你熟悉的所有编程语言都不一样。同时，变量名的命名须遵循如下规则：
+- 命名只能使用英文字母，数字和下划线，首个字符不能以数字开头
+- 中间不能有空格，可以使用下划线
+- 不能使用标点符号
+- 不能使用bash里的关键字
+
+使用一个定义过的变量，必须在变量前面加`$`
+```shell
+yourname="叩"
+echo 你的名字是$yourname
+```
+可以在变量名加花括号，加花括号是为了帮助解释器识别变量的边界，比如以下代码
+```shell
+for yourname in op zp np hp;do
+  echo $yournamessw #不能正确输出，yournamessw被当成变量名
+  echo ${yourname}ssw #正确输出
+done
+```
+推荐给所有变量加上花括号，这是个好的编程习惯。
+
+已定义的变量，可以被重新定义，如：
+```shell
+your_name="op"
+echo $your_name
+your_name="np" #这里不能写$your_name="np"
+echo $your_name
+```
+这样写是合法的，但注意，第二次赋值的时候不能写\$your_name="np"，使用变量的时候才加`$`符号
+### shell运算符
+原生bash不支持简单的数学运算，但是可以通过其他命令来实现，例如 `awk` 和 `expr`，`expr` 最常用。
+
+`expr` 是一款表达式计算工具，使用它能完成表达式的求值操作
+
+例如，两个数相加(注意使用的是反引号 ` 而不是单引号 ')
+```shell
+#!/bin/bash
+
+val=`expr 2 + 2`
+echo "两数之和为 : $val"
+```
+![Alt text](./images/image2.png)
+
+### shell流程控制
+#### if else
+语法格式
+```shell
+if condition
+then
+    command1 
+    command2
+    ...
+    commandN 
+fi
+```
+#### if else-if else
+```shell
+if condition1
+then
+    command1
+elif condition2 
+then 
+    command2
+else
+    commandN
+fi
+```
+### shell数组
+bash支持一维数组（不支持多维数组），并且没有限定数组的大小，数组元素用空格分开<br>
+例如：
+```bash
+array_name=(value0 value1 value2 value3)
+```
+类似于 C 语言，数组元素的下标由 0 开始编号。获取数组中的元素要利用下标
+
+读取数组元素的一般步骤：
+```bash
+value=${array_name[2]} #读取下标为2的元素
+```
+使用 @ 符号可以获取数组中的所有元素：
+```bash
+${array_name[@]}
+```
+使用例：
+```bash
+array=(1 2 3 4 5)
+for item in ${array[@]};do
+  echo ${item}
+done
+```
+### shell传递参数
+我们可以在执行 Shell 脚本时，向脚本传递参数，脚本内获取参数的格式为：$n。n 代表一个数字，1 为执行脚本的第一个参数，2 为执行脚本的第二个参数，以此类推
+```bash
+#!/bin/bash
+
+echo "这是输入的第一个参数$1"
+echo "这是第二个参数"$2
+echo "第三个:$3"
+```
+
+>**参考文章**<br>
+>[Shell 教程](https://www.runoob.com/linux/linux-shell.html)
+## 小任务
+尝试linux的各种操作，写一个bash脚本实现自己喜欢的特定功能
