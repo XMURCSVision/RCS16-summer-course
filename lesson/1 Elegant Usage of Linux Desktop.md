@@ -3,6 +3,7 @@ linux基础操作
 - 终端快捷键
 - 常用命令
 - 简单bash脚本
+
 我们今天用的是Linux发行版之一的Ubuntu Desktop
 
 Ubuntu Desktop是由Canonical开发的Linux 发行版，由于其易用性，它是最受欢迎的发行版之一。它也是刚开始使用 Linux 的人的首选之一
@@ -39,6 +40,7 @@ Ubuntu Desktop是由Canonical开发的Linux 发行版，由于其易用性，它
 - `Ctrl + s` 暂停当前终端
 - `Ctrl + q` 恢复当前终端
 - **`Ctrl + l` 清空屏幕**
+- `Ctrl+Shift+-`撤销上一步操作
 > **参考文章**<br>
 > [Linux的shell终端常用快捷键大全](https://zhuanlan.zhihu.com/p/29538650)
 ## linux常用指令
@@ -48,8 +50,7 @@ Ubuntu Desktop是由Canonical开发的Linux 发行版，由于其易用性，它
   - 列出目录内容（所有的文件和目录）
 - `ls -la`
   - 列出当前目录下的所有文件和目录的详细信息
-- `ls -d *`
-  - 列出当前目录下的目录名称，而不是目录下的内容。
+
 - `pwd` 显示当前目录的绝对路径
 - `mkdir` 
   - 语法`mkdir [-p] dirname`
@@ -261,7 +262,55 @@ val=`expr 2 + 2`
 echo "两数之和为 : $val"
 ```
 ![Alt text](./images/image2.png)
+试一试
+```shell
+#!/bin/bash
+a=10
+b=20
+echo a=${a} b=${b}
+echo `expr ${a} + $b`
+echo `expr $a - $b`
+echo `expr $a \* $b`
+echo `expr $b / $a`
+echo `expr $b % $a`
+a=$b
+echo a=${a} b=${b}
+if [ $a == $b ] 
+then
+  echo "a与b相等，都是$a"
+else
+  echo "a与b不相等，a=${a} b=${b}"
+fi #if语句结束必须有这个
+a=100
+echo a=${a} b=${b}
+if [ $a == $b ] 
+then
+  echo "a与b相等，都是$a"
+else
+  echo "a与b不相等，a=${a} b=${b}"
+fi #if语句结束必须有这个
+```
+[更多运算符](https://www.runoob.com/linux/linux-shell-basic-operators.html)
 
+#### shell双小括号表达式
+`((表达式))`用来扩展Shell中的算术运算,以及赋值运算,扩展for,while,if条件测试运算
+
+注意点:
+1. 在双括号结构中,所有的表达式可以像c语言一样,如a++,b--
+2. 在双括号结构中,所有变量可以不加入$符号前缀,也可以加入
+3. 在双括号可以进行逻辑运算,四则运算,而且运算符合数值之间可以没有空格,也可以有空格
+4. 双括号结构扩展了for,while,if条件测试运算
+5. 支持多个表达式运算,各个表达式之间用逗号,分开
+6. 使用[]时必须保证运算符与数值之间有空格,而(())时数值与运算符可以没有空格
+
+```shell
+for ((i=0;i<100;++i))
+do
+  echo $i
+done
+```
+> 参考文章<br>
+> [Shell| shell中双小括号的使用方法](https://blog.csdn.net/u011479200/article/details/79603385)
 ### shell流程控制
 #### if else
 语法格式
@@ -274,7 +323,19 @@ then
     commandN 
 fi
 ```
+试一试
+```shell
+if [ `expr 2 + 2` == 4 ] # 数学运算需要使用expr，表达式放在反引号里
+then
+  echo "所谓自由就是说2+2=4的自由"
+else
+  echo "1984"
+fi
+```
 #### if else-if else
+语法格式
+
+注意if和fi配套，if结束总是跟着fi
 ```shell
 if condition1
 then
@@ -286,6 +347,88 @@ else
     commandN
 fi
 ```
+#### for 循环
+
+与其他编程语言类似，Shell支持for循环。
+
+for循环一般格式为：
+```shell
+for var in item1 item2 ... itemN
+do
+    command1
+    command2
+    ...
+    commandN
+done
+```
+#### while 语句
+
+while 循环用于不断执行一系列命令，也用于从输入文件中读取数据。其语法格式为：
+```shell
+while condition
+do
+    command
+done
+```
+####  until 循环
+
+until 循环执行一系列命令直至条件为 true 时停止。
+
+until 循环与 while 循环在处理方式上刚好相反。
+
+一般 while 循环优于 until 循环，但在某些时候—也只是极少数情况下，until 循环更加有用。
+
+until 语法格式:
+```shell
+until condition
+do
+    command
+done
+```
+####  case ... esac
+
+case ... esac 为多选择语句，与其他语言中的 switch ... case 语句类似，是一种多分支选择结构，每个 case 分支用右圆括号开始，用两个分号 ;; 表示 break，即执行结束，跳出整个 case ... esac 语句，esac（就是 case 反过来）作为结束标记。
+
+可以用 case 语句匹配一个值与一个模式，如果匹配成功，执行相匹配的命令。
+
+case ... esac 语法格式如下：
+```shell
+case 值 in
+模式1)
+    command1
+    command2
+    ...
+    commandN
+    ;;
+模式2)
+    command1
+    command2
+    ...
+    commandN
+    ;;
+esac
+```
+case 工作方式如上所示，取值后面必须为单词 in，每一模式必须以右括号结束。取值可以为变量或常数，匹配发现取值符合某一模式后，其间所有命令开始执行直至 ;;
+
+取值将检测匹配的每一个模式。一旦模式匹配，则执行完匹配模式相应命令后不再继续其他模式。如果无一匹配模式，使用星号 * 捕获该值，再执行后面的命令。
+```shell
+echo '输入 1 到 4 之间的数字:'
+echo '你输入的数字为:'
+read aNum #从终端接受一个输入
+case $aNum in
+    1)  echo '你选择了 1'
+    ;;
+    2)  echo '你选择了 2'
+    ;;
+    3)  echo '你选择了 3'
+    ;;
+    4)  echo '你选择了 4'
+    ;;
+    *)  echo '你没有输入 1 到 4 之间的数字'
+    ;;
+esac
+```
+[流程控制](https://www.runoob.com/linux/linux-shell-process-control.html)
 ### shell数组
 bash支持一维数组（不支持多维数组），并且没有限定数组的大小，数组元素用空格分开<br>
 例如：
@@ -317,6 +460,51 @@ done
 echo "这是输入的第一个参数$1"
 echo "这是第二个参数"$2
 echo "第三个:$3"
+```
+### shell函数
+#### 函数格式
+```shell
+[ function ] funname [()]
+
+{
+
+    action;
+
+    [return int;]
+
+}
+```
+示例
+```shell
+#!/bin/bash
+# author:菜鸟教程
+# url:www.runoob.com
+
+demoFun(){
+    echo "这是我的第一个 shell 函数!"
+}
+echo "-----函数开始执行-----"
+demoFun
+echo "-----函数执行完毕-----"
+```
+#### 函数参数
+
+在Shell中，调用函数时可以向其传递参数。在函数体内部，通过 $n 的形式来获取参数的值，例如，$1表示第一个参数，$2表示第二个参数...如果大于十个参数，则需要写成${10},而不是$10
+```shell
+#!/bin/bash
+# author:菜鸟教程
+# url:www.runoob.com
+
+funWithParam(){
+    echo "第一个参数为 $1 !"
+    echo "第二个参数为 $2 !"
+    echo "第十个参数为 $10 !"
+    echo "第十个参数为 ${10} !"
+    echo "第十一个参数为 ${11} !"
+    echo "参数总数有 $# 个!"
+    echo "作为一个字符串输出所有参数 $* !"
+}
+funWithParam 1 2 3 4 5 6 7 8 9 34 73
 ```
 
 >**参考文章**<br>
