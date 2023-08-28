@@ -1,4 +1,3 @@
-## 这里写小任务的完成情况，附图，相关图片放在images文件夹下
-图片路径参考
-![Alt text](./images/mygo.jpg)
-![Alt text](./images/anontomori.jpg)
+![image-20230828161322955](C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20230828161322955.png)
+
+随机生成一个十以内的数，然后用户输入一个数，如果相等则赢，否则就算输
