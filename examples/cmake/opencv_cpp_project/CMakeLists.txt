@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.10)
+project(detector)
+find_package(OpenCV REQUIRED)
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+aux_source_directory(. EXEC_FILES)
+add_executable(detector ${EXEC_FILES})
+target_link_libraries( detector ${OpenCV_LIBS} /usr/lib/x86_64-linux-gnu/libopencv_highgui.so)
