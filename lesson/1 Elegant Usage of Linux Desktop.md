@@ -11,6 +11,7 @@ Ubuntu Desktop是由Canonical开发的Linux 发行版，由于其易用性，它
 那么什么是 Linux 发行版？它是由 Linux 内核开发的操作系统， 由 Linus Torvalds 于 1991 年创建的类 UNIX系统。Linux 发行版通常是免费和开源的，许多都是流行操作系统（如 Windows 和 macOS）的绝佳替代品
 
 ## linux终端快捷键
+- Ctrl + Shift + -  撤销上一步
 - **`Ctrl + Alt + t` 新建终端**
 - `Shift + Ctrl + t` 在已有终端上打开新的tab
 - `Ctrl + d` 关闭当前tab，若只有一个tab则关闭终端
@@ -60,6 +61,7 @@ Ubuntu Desktop是由Canonical开发的Linux 发行版，由于其易用性，它
   - 显示命令 `commandname` 所在的地方
   - `which commandname` 也可以用来做这个
 - `type commandname`
+  - eg:type ls
   - 显示命令 `commandname` 的信息。
 - `whatis commandname`
   - 显示命令 `commandname` 的一句话帮助
@@ -300,7 +302,6 @@ fi #if语句结束必须有这个
 4. 双括号结构扩展了for,while,if条件测试运算
 5. 支持多个表达式运算,各个表达式之间用逗号,分开
 6. 使用[]时必须保证运算符与数值之间有空格,而(())时数值与运算符可以没有空格
-
 ```shell
 for ((i=0;i<100;++i))
 do

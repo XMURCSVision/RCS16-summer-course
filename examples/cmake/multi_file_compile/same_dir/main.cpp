@@ -1,13 +1,4 @@
-#include <iostream>
-#include <algorithm>
-#include <ctype.h>
-#include <string>
-
-//求最大公因数
-int gcd(long long num1,long long num2){
-    if(num2==0)return num1;
-    return gcd(num2,num1%num2);
-}
+#include"gcd.h"
 
 bool checkDigit(std::string str){
     auto isdigit=[](char &ch){
