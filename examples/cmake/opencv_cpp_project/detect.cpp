@@ -17,9 +17,15 @@ int main(int argc,char* argv[])
         cv::threshold(gray,threshold,125,255,cv::THRESH_BINARY);
         det.get_match_armor(contours,threshold,target_out,100);
         if(size!=target_out.size()){
-            std::vector<cv::Point2f> dots;
+            std::vector<cv::Point2d> dots;
+            for(auto iter=target_out.rbegin();iter!=target_out.rbegin()+4;++iter){
+                dots.emplace_back(static_cast<int>(*iter))
+            }
             dots.assign(target_out.end()-4,target_out.end());
             cv::polylines(frame,dots,true,cv::Scalar(255,0,0));
+            // cv::polylines
+        
+
         }
         cv::imshow("results",frame);
         cv::waitKey(10);
